@@ -214,7 +214,10 @@ export class Editor extends React.Component<IAllProps> {
         }
       });
     }
-    const cloudTinyJs = `https://labribeiro.com/editor/tinymce.min.js`;
+    // fallback to the cloud when the tinymceScriptSrc is not specified
+    const channel = this.props.cloudChannel as Version; // `cloudChannel` is in `defaultProps`, so it's always defined.
+    const apiKey = this.props.apiKey ? this.props.apiKey : 'no-api-key';
+    const cloudTinyJs = `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js`;
     return [{ src: cloudTinyJs, async, defer }];
   }
 
